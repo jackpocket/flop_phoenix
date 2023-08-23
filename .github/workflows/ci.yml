@@ -109,8 +109,12 @@ jobs:
         run: mix compile --warnings-as-errors
       - name: Run Formatter
         run: mix format --check-formatted
+      - name: Check security
+        run: mix sobelow
+      - name: Check mix.lock for unused dependencies
+        run: mix deps.unlock --check-unused
       - name: Run Linter
-        run: mix credo
+        run: mix credo --strict
       - name: Run Hex Audit
         run: mix hex.audit
       - name: Generate docs
